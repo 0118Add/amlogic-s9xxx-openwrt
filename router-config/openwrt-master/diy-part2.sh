@@ -51,6 +51,7 @@ make && sudo make install
 popd
 git clone https://github.com/immortalwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 sed -i 's/解除网易云音乐播放限制/解锁网易音乐播放限制/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
+svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2 package/redsocks2
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
