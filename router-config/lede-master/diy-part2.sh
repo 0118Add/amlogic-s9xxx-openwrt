@@ -39,7 +39,7 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 #sed -i '$a src-git helloworld https://github.com/fw876/helloworld' feeds.conf.default
 #git clone https://github.com/0118Add/helloworld.git package/helloworld
 #git clone https://github.com/0118Add/pass-ssrp.git package/luci-app-ssr-plus
-svn co https://github.com/0118Add/OpenWrt-CI/trunk/x86/diy/x86_lede/helloworld package/helloworld
+svn co https://github.com/0118Add/OpenWrt-CI/trunk/x86/diy/x86_lede/pass-ssrp package/helloworld
 
 
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
