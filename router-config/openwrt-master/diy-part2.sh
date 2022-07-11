@@ -53,6 +53,8 @@ popd
 git clone https://github.com/immortalwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 sed -i 's/解除网易云音乐播放限制/解锁网易音乐播放限制/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 svn co https://github.com/coolsnowwolf/packages/trunk/net/redsocks2 package/redsocks2
+svn co https://github.com/coolsnowwolf/packages/trunk/net/zerotier package/zerotier
+svn co https://github.com/coolsnowwolf/luci/trunk/applications/luci-app-zerotier package/luci-app-zerotier
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
