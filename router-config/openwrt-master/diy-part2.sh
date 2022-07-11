@@ -8,9 +8,6 @@
 
 # ------------------------------- Main source started -------------------------------
 #
-
-echo 'src-git my https://github.com/kiddin9/openwrt-packages' >>feeds.conf.default
-
 # Modify default theme（FROM uci-theme-bootstrap CHANGE TO luci-theme-material）
 #sed -i 's/luci-theme-bootstrap/luci-theme-material/g' feeds/luci/collections/luci/Makefile
 
@@ -39,7 +36,21 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 #git clone https://github.com/0118Add/pass-ssrp.git package/luci-app-ssr-plus
 svn co https://github.com/0118Add/OpenWrt-CI/trunk/x86/diy/x86_lede/pass-ssrp package/helloworld
 
-
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
+git clone https://github.com/sirpdboy/luci-theme-opentopd.git package/luci-theme-opentopd
+rm -rf feeds/luci/themes/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
+svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
+# 编译 po2lmo (如果有po2lmo可跳过)
+pushd package/luci-app-openclash/tools/po2lmo
+make && sudo make install
+popd
+git clone https://github.com/immortalwrt/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+sed -i 's/解除网易云音乐播放限制/解锁网易音乐播放限制/g' package/luci-app-unblockneteasemusic/luasrc/controller/unblockneteasemusic.lua
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
