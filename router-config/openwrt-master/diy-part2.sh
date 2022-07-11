@@ -40,6 +40,7 @@ git clone https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-pass
 git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
 git clone https://github.com/sirpdboy/luci-theme-opentopd.git package/luci-theme-opentopd
 rm -rf feeds/luci/themes/luci-theme-argon
+git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
 git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
