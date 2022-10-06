@@ -17,7 +17,7 @@ on:
         type: choice
         options:
           - all
-          - s905x3_s905d_s912
+          - s905x3_s905d
           - a311d
           - s922x
           - s922x-n2
