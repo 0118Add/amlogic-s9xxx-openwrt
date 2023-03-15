@@ -11,8 +11,8 @@
 # Modify default theme（FROM uci-theme-bootstrap CHANGE TO luci-theme-material）
 #sed -i 's/luci-theme-bootstrap/luci-theme-material/g' ./feeds/luci/collections/luci/Makefile
 
-# Modify default IP（FROM 192.168.1.1 CHANGE TO 192.168.2.1）
-sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+# Modify default IP（FROM 192.168.1.1 CHANGE TO 192.168.2.10）
+sed -i 's/192.168.1.1/192.168.2.10/g' package/base-files/files/bin/config_generate
 
 # Add autocore support for armvirt
 sed -i 's/TARGET_rockchip/TARGET_rockchip\|\|TARGET_armvirt/g' package/lean/autocore/Makefile
