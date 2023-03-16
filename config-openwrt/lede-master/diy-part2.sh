@@ -66,7 +66,6 @@ git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luc
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
-git clone https://github.com/ophub/luci-app-amlogic.git package/amlogic
 #svn co https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom/trunk/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone https://github.com/0118Add/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/amlogic
