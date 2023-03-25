@@ -22,7 +22,7 @@ on:
       docker_img:
         description: "Set the docker image"
         required: false
-        default: "ophub/openwrt-aarch64:latest"
+        default: "8688add/openwrt-aarch64:latest"
 
 env:
   DOCKER_OUTPATH: out
