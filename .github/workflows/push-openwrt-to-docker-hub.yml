@@ -60,18 +60,8 @@ jobs:
         id: make
         if: ${{ steps.down.outputs.status }} == 'success' && !cancelled()
         run: |
-          # Make docker image
           chmod +x ${MAKE_DOCKER_SH}
           ${MAKE_DOCKER_SH}
-
-          # Generate Dockerfile
-          docker_envfile="${{ env.DOCKER_OUTPATH }}/Dockerfile"
-          echo 'FROM scratch' >${docker_envfile}
-          echo 'ADD docker-armvirt-64-default-rootfs.tar.gz /' >>${docker_envfile}
-          echo 'EXPOSE 22 53 80 443 7681' >>${docker_envfile}
-          echo 'ENTRYPOINT ["/sbin/init"]' >>${docker_envfile}
-
-          sync && echo -e "Current ${{ env.DOCKER_OUTPATH }} directory status: \n$(ls ${{ env.DOCKER_OUTPATH }} -l)"
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Set up QEMU

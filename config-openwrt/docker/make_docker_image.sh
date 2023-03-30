@@ -17,6 +17,7 @@
 #======================================== Functions list ========================================
 #
 # error_msg         : Output error message
+# check_depends     : Check dependencies
 # find_openwrt      : Find OpenWrt file (openwrt/*rootfs.tar.gz)
 # adjust_settings   : Adjust related file settings
 # make_dockerimg    : make docker image
@@ -25,13 +26,14 @@
 #
 # Set default parameters
 current_path="${PWD}"
-tmp_path="${current_path}/tmp"
-out_path="${current_path}/out"
 openwrt_path="${current_path}/openwrt"
 openwrt_rootfs_file="*rootfs.tar.gz"
-docker_rootfs_file="docker-armvirt-64-default-rootfs.tar.gz"
+docker_rootfs_file="openwrt-docker-armvirt-64-default-rootfs.tar.gz"
+docker_path="${current_path}/config-openwrt/docker"
 make_path="${current_path}/make-openwrt"
 common_files="${make_path}/openwrt-files/common-files"
+tmp_path="${current_path}/tmp"
+out_path="${current_path}/out"
 
 # Set default parameters
 STEPS="[\033[95m STEPS \033[0m]"
@@ -47,6 +49,25 @@ error_msg() {
     exit 1
 }
 
+check_depends() {
+    # Check the necessary dependencies
+    is_dpkg="0"
+    dpkg_packages=("tar" "gzip")
+    i="1"
+    for package in ${dpkg_packages[*]}; do
+        [[ -n "$(dpkg -l | awk '{print $2}' | grep -w "^${package}$" 2>/dev/null)" ]] || is_dpkg="1"
+        let i++
+    done
+
+    # Install missing packages
+    if [[ "${is_dpkg}" -eq "1" ]]; then
+        echo -e "${STEPS} Start installing the necessary dependencies..."
+        sudo apt-get update
+        sudo apt-get install -y ${dpkg_packages[*]}
+        [[ "${?}" -ne "0" ]] && error_msg "Dependency installation failed."
+    fi
+}
+
 find_openwrt() {
     cd ${current_path}
     echo -e "${STEPS} Start searching for OpenWrt file..."
@@ -58,6 +79,9 @@ find_openwrt() {
     else
         error_msg "There is no [ ${openwrt_rootfs_file} ] file in the [ ${openwrt_path} ] directory."
     fi
+
+    # Check whether the Dockerfile exists
+    [[ -f "${docker_path}/Dockerfile" ]] || error_msg "Missing Dockerfile."
 }
 
 adjust_settings() {
@@ -72,9 +96,21 @@ adjust_settings() {
     echo -e "${INFO} Remove useless files."
     rm -rf ${tmp_path}/lib/firmware/*
     rm -rf ${tmp_path}/lib/modules/*
-    rm -f ${tmp_path}/usr/lib/lua/luci/controller/amlogic.lua
+    rm -f ${tmp_path}/root/.todo_rootfs_resize
     find ${tmp_path} -name '*.rej' -exec rm {} \;
     find ${tmp_path} -name '*.orig' -exec rm {} \;
+    # Remove Amlogic Service
+    rm -f ${tmp_path}/usr/lib/lua/luci/controller/amlogic.lua
+    rm -rf ${tmp_path}/usr/lib/lua/luci/model/cbi/amlogic
+    rm -rf ${tmp_path}/usr/share/amlogic
+    rm -f ${tmp_path}/usr/sbin/openwrt-*-*
+    rm -f ${tmp_path}/etc/init.d/amlogic
+    # Remove docker Service
+    rm -f ${tmp_path}/usr/lib/lua/luci/controller/docker*
+    rm -rf ${tmp_path}/usr/lib/lua/luci/model/cbi/docker*
+    rm -f ${tmp_path}/usr/lib/lua/luci/model/docker*
+    rm -f ${tmp_path}/usr/bin/docker*
+    rm -f ${tmp_path}/etc/init.d/docker*
 
     # Turn off hw_flow by default
     [[ -f "${tmp_path}/etc/config/turboacc" ]] && {
@@ -116,25 +152,34 @@ make_dockerimg() {
 
     # Make docker image
     tar -czf ${docker_rootfs_file} *
-    [[ "${?}" -eq "0" ]] || error_msg "docker image creation failed."
+    [[ "${?}" -eq "0" ]] || error_msg "Docker image creation failed."
 
     # Move the docker image to the output directory
     rm -rf ${out_path} && mkdir -p ${out_path}
     mv -f ${docker_rootfs_file} ${out_path}
-    [[ "${?}" -eq "0" ]] || error_msg "docker image move failed."
+    [[ "${?}" -eq "0" ]] || error_msg "Docker image move failed."
+    echo -e "${INFO} Docker image packaging succeeded."
 
-    echo -e "${INFO} The docker image was created successfully."
-    sync && sleep 3
+    cd ${current_path}
+
+    # Add Dockerfile
+    cp -f ${docker_path}/Dockerfile ${out_path}
+    [[ "${?}" -eq "0" ]] || error_msg "Dockerfile addition failed."
+    echo -e "${INFO} Dockerfile added successfully."
 
     # Remove temporary directory
-    cd ${current_path}
     rm -rf ${tmp_path}
+
+    sync && sleep 3
+    echo -e "${INFO} Docker files list: \n$(ls -l ${out_path})"
+    echo -e "${SUCCESS} Docker image successfully created."
 }
 
 # Show welcome message
 echo -e "${STEPS} Welcome to the Docker Image Maker Tool."
 echo -e "${INFO} Make path: [ ${PWD} ]"
 #
+check_depends
 find_openwrt
 adjust_settings
 make_dockerimg
