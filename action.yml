@@ -1,5 +1,5 @@
 name: "Make OpenWrt"
-author: "https://github.com/ophub/amlogic-s9xxx-openwrt"
+author: "https://github.com/0118Add/amlogic-s9xxx-openwrt"
 description: "Support Amlogic, Rockchip and Allwinner boxes."
 inputs:
   mode:
@@ -25,7 +25,7 @@ inputs:
   kernel_repo:
     description: "Select kernel repository."
     required: false
-    default: "https://github.com/ophub/kernel/tree/main/pub"
+    default: "https://github.com/0118Add/kernel"
   openwrt_size:
     description: "Set the rootfs size(Unit: MiB)."
     required: false
