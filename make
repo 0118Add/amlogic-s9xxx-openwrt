@@ -67,7 +67,7 @@ host_release="$(cat /etc/os-release | grep '^VERSION_CODENAME=.*' | cut -d'=' -f
 op_release="etc/flippy-openwrt-release"
 
 # Dependency files download repository
-depends_repo="https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/build-armbian"
+depends_repo="https://github.com/0118Add/amlogic-s9xxx-armbian/tree/main/build-armbian"
 # Convert depends library address to svn format
 depends_repo="${depends_repo//tree\/main/trunk}"
 
@@ -82,7 +82,7 @@ script_repo="https://github.com/ophub/luci-app-amlogic/tree/main/luci-app-amlogi
 script_repo="${script_repo//tree\/main/trunk}"
 
 # Set the kernel download repository from github.com
-kernel_repo="ophub/kernel"
+kernel_repo="0118Add/kernel"
 # Set the list of kernels used by default
 stable_kernel=("6.1.1" "5.15.1")
 rk3588_kernel=("5.10.1")
