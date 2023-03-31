@@ -79,7 +79,7 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "https://github.com/ophub/kernel/tree/main/pub"
+        default: "https://github.com/0118Add/kernel"
       openwrt_size:
         description: "Set the rootfs size(Unit: MiB)"
         required: false
