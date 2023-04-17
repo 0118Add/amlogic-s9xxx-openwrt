@@ -47,6 +47,92 @@
 #================================ Set make environment variables ================================
 #
 # Related file storage path
+
+source public_funcs
+SKIP_MB=4
+BOOT_MB=256
+ROOTFS_MB=1024
+
+KMOD="${PWD}/files/kmod"
+KMOD_BLACKLIST="${PWD}/files/kmod_blacklist"
+MAC_SCRIPT1="${PWD}/files/fix_wifi_macaddr.sh"
+MAC_SCRIPT2="${PWD}/files/find_macaddr.pl"
+MAC_SCRIPT3="${PWD}/files/inc_macaddr.pl"
+CPUSTAT_SCRIPT="${PWD}/files/cpustat"
+CPUSTAT_SCRIPT_PY="${PWD}/files/cpustat.py"
+INDEX_PATCH_HOME="${PWD}/files/index.html.patches"
+GETCPU_SCRIPT="${PWD}/files/getcpu"
+TTYD="${PWD}/files/ttyd"
+FLIPPY="${PWD}/files/scripts_deprecated/flippy_cn"
+BANNER="${PWD}/files/banner"
+
+# 20200314 add
+FMW_HOME="${PWD}/files/firmware"
+SMB4_PATCH="${PWD}/files/smb4.11_enable_smb1.patch"
+SYSCTL_CUSTOM_CONF="${PWD}/files/99-custom.conf"
+
+# 20200709 add
+COREMARK="${PWD}/files/coremark.sh"
+
+# 20200930 add
+SND_MOD="${PWD}/files/s922x/snd-meson-g12"
+DAEMON_JSON="${PWD}/files/s922x/daemon.json"
+
+# 20201006 add
+FORCE_REBOOT="${PWD}/files/s922x/reboot"
+# 20201017 add
+BAL_ETH_IRQ="${PWD}/files/balethirq.pl"
+# 20201026 add
+FIX_CPU_FREQ="${PWD}/files/fixcpufreq.pl"
+SYSFIXTIME_PATCH="${PWD}/files/sysfixtime.patch"
+
+# 20201128 add
+SSL_CNF_PATCH="${PWD}/files/openssl_engine.patch"
+
+# 20201212 add
+BAL_CONFIG="${PWD}/files/s922x/balance_irq"
+CPUFREQ_INIT="${PWD}/files/s922x/cpufreq"
+
+# 20210302 modify
+FIP_HOME="${PWD}/files/meson_btld/with_fip/s922x"
+WIRELESS_CONFIG="${PWD}/files/s922x/wireless"
+# 20210307 add
+SS_LIB="${PWD}/files/ss-glibc/lib-glibc.tar.xz"
+SS_BIN="${PWD}/files/ss-glibc/armv8a_crypto/ss-bin-glibc.tar.xz"
+JQ="${PWD}/files/jq"
+
+# 20210330 add
+DOCKERD_PATCH="${PWD}/files/dockerd.patch"
+
+# 20200416 add
+FIRMWARE_TXZ="${PWD}/files/firmware_armbian.tar.xz"
+BOOTFILES_HOME="${PWD}/files/bootfiles/amlogic"
+GET_RANDOM_MAC="${PWD}/files/get_random_mac.sh"
+
+# 20210618 add
+DOCKER_README="${PWD}/files/DockerReadme.pdf"
+
+# 20210704 add
+SYSINFO_SCRIPT="${PWD}/files/30-sysinfo.sh"
+
+# 20210923 add
+OPENWRT_INSTALL="${PWD}/files/openwrt-install-amlogic"
+OPENWRT_UPDATE="${PWD}/files/openwrt-update-amlogic"
+OPENWRT_KERNEL="${PWD}/files/openwrt-kernel"
+OPENWRT_BACKUP="${PWD}/files/openwrt-backup"
+
+# 20211019 add
+FIRSTRUN_SCRIPT="${PWD}/files/first_run.sh"
+
+# 20211024 add
+MODEL_DB="${PWD}/files/amlogic_model_database.txt"
+# 20211214 add
+P7ZIP="${PWD}/files/7z"
+# 20211217 add
+DDBR="${PWD}/files/openwrt-ddbr"
+
+
+
 current_path="${PWD}"
 tmp_path="${current_path}/tmp"
 out_path="${current_path}/out"
@@ -805,10 +891,10 @@ refactor_rootfs() {
     }
 
     # Add custom startup script
-    custom_startup_script="etc/custom_service/start_service.sh"
-    [[ -x "${custom_startup_script}" && -f "etc/rc.local" ]] && {
-        sed -i '/^exit 0/i\bash /etc/custom_service/start_service.sh' etc/rc.local
-    }
+    #custom_startup_script="etc/custom_service/start_service.sh"
+    #[[ -x "${custom_startup_script}" && -f "etc/rc.local" ]] && {
+        #sed -i '/^exit 0/i\bash /etc/custom_service/start_service.sh' etc/rc.local
+    #}
 
     # Modify the cpu mode to schedutil
     [[ -f "etc/config/cpufreq" ]] && sed -i "s/ondemand/schedutil/" etc/config/cpufreq
@@ -877,7 +963,7 @@ EOF
     }
 
     # Automatic expansion of the third and fourth partitions
-    echo "yes" >root/.todo_rootfs_resize
+    echo "no" >root/.todo_rootfs_resize
 
     # Relink the kmod program
     [[ -x "sbin/kmod" ]] && (
@@ -955,6 +1041,38 @@ EOF
     else
         echo "SHOW_INSTALL_MENU='yes'" >>${op_release}
     fi
+    
+    #修改根文件系统相关配置=========================================
+    cd ${tag_rootfs}
+    #删除nginx自启动项
+    rm -f ./etc/init.d/nginx
+    export TGT_ROOT=${tag_rootfs}
+    export TGT_BOOT=${tag_bootfs}
+    copy_supplement_files
+    extract_glibc_programs
+    adjust_docker_config
+    adjust_openssl_config
+    adjust_qbittorrent_config
+    adjust_getty_config
+    adjust_samba_config
+    adjust_nfs_config "mmcblk2p4"
+    adjust_openssh_config
+    adjust_openclash_config
+    use_xrayplug_replace_v2rayplug
+    #create_fstab_config
+    adjust_turboacc_config
+    adjust_ntfs_config
+    adjust_mosdns_config
+    patch_admin_status_index_html
+    #adjust_kernel_env
+    #copy_uboot_to_fs
+    #write_release_info
+    #write_banner
+    config_first_run
+    #create_snapshot "etc-000"
+    #write_uboot_to_disk
+    #clean_work_env
+    #修改根文件系统相关配置=========================================================
 
     cd ${current_path}
 
