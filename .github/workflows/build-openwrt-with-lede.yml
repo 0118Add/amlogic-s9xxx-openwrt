@@ -130,10 +130,10 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "ophub/kernel"
+        default: "0118Add/kernel"
         type: choice
         options:
-          - ophub/kernel
+          - 0118Add/kernel
       kernel_usage:
         description: "Set the tags of the stable kernel."
         required: false
@@ -247,7 +247,7 @@ jobs:
 
       - name: Build OpenWrt firmware
         if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
-        uses: ophub/amlogic-s9xxx-openwrt@main
+        uses: 0118Add/amlogic-s9xxx-openwrt@main
         with:
           openwrt_path: openwrt/bin/targets/*/*/*rootfs.tar.gz
           openwrt_board: ${{ inputs.openwrt_board }}
@@ -268,7 +268,7 @@ jobs:
           body: |
             This is OpenWrt firmware for Amlogic and Rockchip
             * Firmware information
-            Default IP: 192.168.1.1
+            Default IP: 192.168.2.10
             Default username: root
             Default password: password
             Default WIFI name: OpenWrt
