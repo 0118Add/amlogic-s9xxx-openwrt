@@ -57,7 +57,7 @@ git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/pass
 git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
 git clone https://github.com/fw876/helloworld.git package/helloworld
 #git clone https://github.com/0118Add/luci-theme-neobird.git package/luci-theme-neobird
-git clone https://github.com/sbwml/luci-app-alist.git package/alist
+#git clone https://github.com/sbwml/luci-app-alist.git package/alist
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
 #git clone https://github.com/sirpdboy/netspeedtest.git package/netspeedtest
 #git clone https://github.com/sirpdboy/luci-app-advanced.git package/luci-app-advanced
