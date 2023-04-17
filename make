@@ -72,7 +72,7 @@ SMB4_PATCH="${PWD}/files/smb4.11_enable_smb1.patch"
 SYSCTL_CUSTOM_CONF="${PWD}/files/99-custom.conf"
 
 # 20200709 add
-COREMARK="${PWD}/files/coremark.sh"
+#COREMARK="${PWD}/files/coremark.sh"
 
 # 20200930 add
 SND_MOD="${PWD}/files/s922x/snd-meson-g12"
@@ -170,7 +170,7 @@ script_repo="https://github.com/ophub/luci-app-amlogic/tree/main/luci-app-amlogi
 script_repo="${script_repo//tree\/main/trunk}"
 
 # Set the kernel download repository from github.com
-kernel_repo="https://github.com/ophub/kernel"
+kernel_repo="https://github.com/0118Add/kernel"
 # Set the tags suffix of the stable kernel, such as kernel_stable, etc.
 kernel_usage="stable"
 # Set the list of kernels used by default
