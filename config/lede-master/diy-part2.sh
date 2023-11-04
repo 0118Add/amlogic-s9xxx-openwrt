@@ -58,7 +58,7 @@ svn co https://github.com/kiddin9/openwrt-packages/trunk/lua-maxminddb package/l
 git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
 #git clone https://github.com/xiaorouji/openwrt-passwall2 package/passwall2
-git clone https://github.com/fw876/helloworld.git package/helloworld
+git clone -b main https://github.com/fw876/helloworld.git package/helloworld
 #git clone https://github.com/0118Add/luci-theme-neobird.git package/luci-theme-neobird
 #git clone https://github.com/sbwml/luci-app-alist.git package/alist
 #git clone https://github.com/messense/aliyundrive-webdav.git package/aliyundrive-webdav
@@ -70,10 +70,10 @@ rm -rf feeds/luci/themes/luci-theme-design
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/gngpp/luci-theme-design package/luci-theme-design
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
-git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-vssr package/luci-app-vssr
 svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 #svn co https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom/trunk/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
-git clone https://github.com/0118Add/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+git clone -b master https://github.com/0118Add/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 
 # 修改插件名字（修改名字后不知道会不会对插件功能有影响，自己多测试）
