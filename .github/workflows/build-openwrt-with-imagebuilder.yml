@@ -39,6 +39,7 @@ on:
           - crrc
           - dg3399
           - dlfr100
+          - doornet2
           - e25
           - eaidk-610
           - emb3531
@@ -51,6 +52,7 @@ on:
           - h69k
           - h88k
           - h88k-v3
+          - hs530r
           - hugsun-x99
           - ipc-r
           - king3399
@@ -129,6 +131,7 @@ on:
           - s912-m8s-pro
           - s912-nexbox-a1
           - s912-nexbox-a2
+          - s912-onecloudpro
           - s912-phicomm-t1
           - s912-t95z-plus
           - s912-tx8-max
