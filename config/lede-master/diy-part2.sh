@@ -87,11 +87,12 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 rm -rf feeds/luci/applications/luci-app-serverchan
 
 merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/dae
+merge_package https://github.com/kiddin9/openwrt-packages openwrt-packages/luci-app-dae
 git clone https://github.com/lisaac/luci-lib-docker.git package/luci-lib-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 git clone https://github.com/sirpdboy/luci-app-ddns-go package/luci-app-ddns-go
 git clone https://github.com/0118Add/luci-app-vssr package/luci-app-vssr
-git clone https://github.com/sbwml/luci-app-daed-next package/luci-app-daed-next
+#git clone https://github.com/sbwml/luci-app-daed-next package/luci-app-daed-next
 git clone https://github.com/jerrykuku/lua-maxminddb package/lua-maxminddb
 #git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
 git clone https://github.com/xiaorouji/openwrt-passwall package/passwall
