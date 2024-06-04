@@ -178,7 +178,7 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "ophub/kernel"
+        default: "0118Add/kernel"
         type: choice
         options:
           - 0118Add/kernel
